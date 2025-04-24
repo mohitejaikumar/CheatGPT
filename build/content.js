@@ -41,7 +41,7 @@ document.addEventListener("keydown", (event) => {
       console.log("Sending selected text to backend:", selectedText);
 
       // Send the text to the backend
-      fetch("http://localhost:3000/api/v1/chat", {
+      fetch("https://cheat-gpt-backend.vercel.app/api/v1/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,12 +51,17 @@ document.addEventListener("keydown", (event) => {
         .then((response) => {
           if (!response.ok) {
             // Try to parse error message from backend first
-            return response.json().then(err => {
-                throw new Error(err.error || `HTTP error! status: ${response.status}`);
-            }).catch(() => {
+            return response
+              .json()
+              .then((err) => {
+                throw new Error(
+                  err.error || `HTTP error! status: ${response.status}`
+                );
+              })
+              .catch(() => {
                 // If parsing fails or no specific error message, use status
                 throw new Error(`HTTP error! status: ${response.status}`);
-            });
+              });
           }
           return response.json(); // Parse JSON response
         })
@@ -68,21 +73,27 @@ document.addEventListener("keydown", (event) => {
             console.log("-----------------------");
 
             // Copy to clipboard
-            navigator.clipboard.writeText(data.response)
+            navigator.clipboard
+              .writeText(data.response)
               .then(() => {
                 showToast("Success! Response copied to clipboard.", "success");
               })
-              .catch(err => {
+              .catch((err) => {
                 console.error("Failed to copy text: ", err);
-                showToast("Success! (But failed to copy to clipboard)", "success"); // Still show success, but mention copy failure
+                showToast(
+                  "Success! (But failed to copy to clipboard)",
+                  "success"
+                ); // Still show success, but mention copy failure
               });
-
           } else {
             console.warn(
               "No Gemini response received from backend.",
               data.message
             );
-            showToast(`Backend Message: ${data.message || 'No specific response.'}`, "info");
+            showToast(
+              `Backend Message: ${data.message || "No specific response."}`,
+              "info"
+            );
           }
         })
         .catch((error) => {
@@ -95,7 +106,7 @@ document.addEventListener("keydown", (event) => {
         });
     } else {
       console.log("No text selected or selected text is empty.");
-       showToast("No text selected.", "info");
+      showToast("No text selected.", "info");
     }
   }
 });
