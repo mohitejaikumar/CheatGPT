@@ -41,7 +41,7 @@ document.addEventListener("keydown", (event) => {
       console.log("Sending selected text to backend:", selectedText);
 
       // Send the text to the backend
-      fetch("https://cheat-gpt-backend.vercel.app/api/v1/chat", {
+      fetch("http://localhost:3000/api/v1/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
