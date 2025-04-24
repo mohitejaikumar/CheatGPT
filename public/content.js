@@ -76,24 +76,18 @@ document.addEventListener("keydown", (event) => {
             navigator.clipboard
               .writeText(data.response)
               .then(() => {
-                showToast("Success! Response copied to clipboard.", "success");
+                showToast("✅", "success");
               })
               .catch((err) => {
                 console.error("Failed to copy text: ", err);
-                showToast(
-                  "Success! (But failed to copy to clipboard)",
-                  "success"
-                ); // Still show success, but mention copy failure
+                showToast("✅❌", "success"); // Still show success, but mention copy failure
               });
           } else {
             console.warn(
               "No Gemini response received from backend.",
               data.message
             );
-            showToast(
-              `Backend Message: ${data.message || "No specific response."}`,
-              "info"
-            );
+            showToast("❌", "info");
           }
         })
         .catch((error) => {
@@ -102,11 +96,11 @@ document.addEventListener("keydown", (event) => {
             error
           );
           // Show error toast
-          showToast(`Error: ${error.message}`, "error");
+          showToast("❌", "error");
         });
     } else {
       console.log("No text selected or selected text is empty.");
-      showToast("No text selected.", "info");
+      showToast("❌", "info");
     }
   }
 });
