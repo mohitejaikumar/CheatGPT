@@ -1,6 +1,6 @@
 # CheatGPT
 
-This application is designed to cheat in offline quiz without tab switch .
+This application is designed to cheat in online quiz without tab switch .
 
 ## How to use this ?
 
